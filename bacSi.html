@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bác sĩ - MediLab</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <style>
+    .section-title::after {
+      content: "";
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: #0d6efd;
+      margin: 8px auto 0;
+      border-radius: 3px;
+    }
+    
+
+    #faq-doctors .accordion-button:not(.collapsed) {
+      color: var(--bs-primary);
+      background-color: var(--bs-primary-bg-subtle);
+      box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .125);
+    }
+
+    #faq-doctors .accordion-button:focus {
+      box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+    }
+
+    #faq-doctors .answer-doctor-img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+    }
+  </style>
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/Bac_Si.css">
+</head>
+
+<body>
+  <!-- thanh thông báo trên cùng -->
+  <div id="announcement" class="bg-primary text-white py-1 small">
+    <div class="container d-flex flex-wrap justify-content-center justify-content-md-between gap-2">
+      <div class="d-flex align-items-center gap-3">
+        <span><i class="bi bi-envelope"></i> contact@benhvien.vn</span>
+        <span class="d-none d-sm-inline"><i class="bi bi-telephone"></i> 0906696492</span>
+      </div>
+      <div class="d-flex align-items-center gap-3">
+        <a class="text-white text-decoration-none" href="#contact"><i class="bi bi-geo-alt"></i> Liên hệ nhanh</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- header menu -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-primary" href="index.html#home">MediLab</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+        aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="index.html">Trang Chủ</a></li>
+          <li class="nav-item"><a class="nav-link" href="gioiThieu.html">Giới Thiệu</a></li>
+          <li class="nav-item"><a class="nav-link active" href="bacSi.html">Bác sĩ</a></li>
+          <li class="nav-item"><a class="nav-link" href="chuyenKhoa.html">Chuyên Khoa</a></li>
+          <li class="nav-item"><a class="nav-link " href="lienHe.html">Liên Hệ</a></li>
+          <li class="ms-lg-3 mt-2 mt-lg-0">
+            <a href="lienHe.html" class="btn btn-primary">Đặt lịch khám</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- nội dung trang bác sĩ-->
+  <main class="py-5">
+    <div class="container">
+      <div class="text-center mb-4">
+        <h1 class="h3 section-title">Danh Sách Bác sĩ</h1>
+        <p class="text-secondary">Dưới đây là danh sách các bác sĩ chuyên khoa hàng đầu tại MediLab. Quý khách có thể
+          xem thông tin và lựa chọn bác sĩ phù hợp để đặt lịch khám.</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- danh sách bác sĩ -->
+      <section id="doctors" class="py-5 bg-light">
+        <div class="container">
+
+          <!-- Carousel Bác sĩ -->
+          <div class="swiper doctor-swiper">
+            <div class="swiper-wrapper">
+              <!-- Slide 1 -->
+              <div class="swiper-slide">
+                <div class="doctor-card">
+                  <img src="./assets/doctor/leedohyun.jpg" alt="Bác sĩ Nguyễn An" />
+                  <div class="doctor-card-overlay">
+                    <span class="doctor-specialty">Tim mạch</span>
+                    <h4 class="doctor-name">BS.CKII Nguyễn An</h4>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 2 -->
+              <div class="swiper-slide">
+                <div class="doctor-card">
+                  <img src="./assets/doctor/leesuk.jpg" alt="Bác sĩ Trần Bình" />
+                  <div class="doctor-card-overlay">
+                    <span class="doctor-specialty">Nhi khoa</span>
+                    <h4 class="doctor-name">ThS.BS Trần Bình</h4>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 3 -->
+              <div class="swiper-slide">
+                <div class="doctor-card">
+                  <img src="./assets/doctor/han.jpg" alt="Bác sĩ Lê Chi" />
+                  <div class="doctor-card-overlay">
+                    <span class="doctor-specialty">Thần kinh</span>
+                    <h4 class="doctor-name">BS. Lê Thị Chi</h4>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 4 -->
+              <div class="swiper-slide">
+                <div class="doctor-card">
+                  <img src="./assets/doctor/parkshin-hye.jpg" alt="Bác sĩ Phạm Dung" />
+                  <div class="doctor-card-overlay">
+                    <span class="doctor-specialty">Ngoại tổng quát</span>
+                    <h4 class="doctor-name">BS. Phạm Thị Dung</h4>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 5 (Thêm) -->
+              <div class="swiper-slide">
+                <div class="doctor-card">
+                  <img src="./assets/doctor/leedongwoook.jpg" alt="Bác sĩ Vũ Mạnh" />
+                  <div class="doctor-card-overlay">
+                    <span class="doctor-specialty">Da liễu</span>
+                    <h4 class="doctor-name">BS. Vũ Hùng Mạnh</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Nút điều hướng -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+
+    <div class="container">
+      <section id="faq-doctors" class="py-5">
+        <div class="container">
+          <div class="text-center mb-5">
+            <h2 class="section-title">Giải Đáp Cùng Chuyên Gia</h2>
+            <p class="lead text-secondary">Các bác sĩ của chúng tôi trả lời những thắc mắc phổ biến nhất về sức khỏe.
+            </p>
+          </div>
+
+          <div class="row justify-content-center">
+            <div class="col-lg-9">
+              <div class="accordion" id="doctorFaqAccordion">
+
+                <!-- Câu hỏi 1 -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                      data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      <i class="bi bi-question-circle-fill me-2"></i>
+                      Làm thế nào để phòng ngừa bệnh tim mạch hiệu quả?
+                    </button>
+                  </h2>
+                  <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#doctorFaqAccordion">
+                    <div class="accordion-body">
+                      <blockquote class="mb-4 text-secondary">
+                        "Để phòng ngừa bệnh tim mạch, điều quan trọng nhất là duy trì lối sống lành mạnh: ăn
+                        uống cân bằng, giảm muối và chất béo bão hòa, tập thể dục đều đặn ít nhất 30 phút mỗi
+                        ngày, không hút thuốc và kiểm tra sức khỏe định kỳ để kiểm soát huyết áp và cholesterol."
+                      </blockquote>
+                      <div class="d-flex align-items-center">
+                        <img src="./assets/doctor/leedohyun.jpg" alt="BS.CKII Nguyễn An"
+                          class="answer-doctor-img rounded-circle me-3">
+                        <div>
+                          <h6 class="fw-bold mb-0">BS.CKII Nguyễn An</h6>
+                          <small>Chuyên khoa Tim mạch</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Câu hỏi 2 -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                      data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      <i class="bi bi-question-circle-fill me-2"></i>
+                      Trẻ biếng ăn, chậm lớn thì cần bổ sung gì?
+                    </button>
+                  </h2>
+                  <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#doctorFaqAccordion">
+                    <div class="accordion-body">
+                      <blockquote class="mb-4 text-secondary">
+                        "Khi trẻ biếng ăn, cha mẹ không nên ép con mà hãy chia nhỏ bữa ăn và đa dạng hóa thực
+                        đơn. Cần đảm bảo đủ 4 nhóm chất: đạm, béo, đường bột, vitamin và khoáng chất. Các vi
+                        chất quan trọng cần chú ý là kẽm, sắt, và vitamin nhóm B. Tốt nhất, hãy đưa bé đến
+                        gặp bác sĩ dinh dưỡng để được tư vấn cụ thể."
+                      </blockquote>
+                      <div class="d-flex align-items-center">
+                        <img src="./assets/doctor/leesuk.jpg" alt="ThS.BS Trần Bình"
+                          class="answer-doctor-img rounded-circle me-3">
+                        <div>
+                          <h6 class="fw-bold mb-0">ThS.BS Trần Bình</h6>
+                          <small>Chuyên khoa Nhi</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Câu hỏi 3 -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                      data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                      <i class="bi bi-question-circle-fill me-2"></i>
+                      Dấu hiệu sớm của đột quỵ là gì và cần làm gì ngay?
+                    </button>
+                  </h2>
+                  <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#doctorFaqAccordion">
+                    <div class="accordion-body">
+                      <blockquote class="mb-4 text-secondary">
+                        "Hãy ghi nhớ quy tắc F.A.S.T: **F**ace (Méo mặt), **A**rm (Yếu tay), **S**peech (Nói
+                        khó), **T**ime (Thời gian). Khi thấy bất kỳ dấu hiệu nào, hãy gọi cấp cứu ngay lập
+                        tức. Tuyệt đối không tự ý cho bệnh nhân uống thuốc hay cạo gió. Thời gian vàng để cứu
+                        não là cực kỳ quan trọng."
+                      </blockquote>
+                      <div class="d-flex align-items-center">
+                        <img src="./assets/doctor/han.jpg" alt="BS. Lê Thị Chi"
+                          class="answer-doctor-img rounded-circle me-3">
+                        <div>
+                          <h6 class="fw-bold mb-0">BS. Lê Thị Chi</h6>
+                          <small>Chuyên khoa Thần kinh</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+
+  <!-- footer -->
+  <footer class="bg-light border-top pt-5">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <h5 class="fw-bold text-primary">MediLab</h5>
+          <p class="mb-1">12 Trịnh Định Thảo, Phường Hòa Thạnh, Quận Tân Phú, TP. Hồ Chí Minh</p>
+          <p class="mb-1"><span class="fw-semibold">Điện thoại:</span> 0906696492</p>
+          <p class="mb-3"><span class="fw-semibold">Email:</span> contact@benhvien.vn</p>
+          <div class="d-flex gap-2">
+            <a class="btn btn-outline-secondary btn-sm" href="#" aria-label="Facebook"><i
+                class="bi bi-facebook"></i></a>
+            <a class="btn btn-outline-secondary btn-sm" href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+            <a class="btn btn-outline-secondary btn-sm" href="#" aria-label="Instagram"><i
+                class="bi bi-instagram"></i></a>
+            <a class="btn btn-outline-secondary btn-sm" href="#" aria-label="LinkedIn"><i
+                class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h6 class="fw-semibold mb-3">Liên kết</h6>
+          <ul class="list-unstyled mb-0">
+            <li class="mb-2"><a class="text-decoration-none text-secondary" href="index.html">Trang Chủ</a></li>
+            <li class="mb-2"><a class="text-decoration-none text-secondary" href="lienHe.html">Giới Thiệu</a></li>
+            <li class="mb-2"><a class="text-decoration-none text-secondary" href="bacSi.html">Bác sĩ</a></li>
+            <li class="mb-2"><a class="text-decoration-none text-secondary" href="chuyenKhoa.html">Chuyên Khoa</a></li>
+            <li><a class="text-decoration-none text-secondary" href="lienHe.html">Liên Hệ</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-3">
+          <h6 class="fw-semibold mb-3">Dịch vụ</h6>
+          <ul class="list-unstyled mb-0">
+            <li class="mb-2">Khám tổng quát</li>
+            <li class="mb-2">Chẩn đoán hình ảnh</li>
+            <li class="mb-2">Xét nghiệm</li>
+            <li class="mb-2">Tư vấn chuyên khoa</li>
+            <li>Điều trị ngoại trú</li>
+          </ul>
+        </div>
+        <div class="col-12 col-lg-3">
+          <h6 class="fw-semibold mb-3">Giờ làm việc</h6>
+          <ul class="list-unstyled">
+            <li class="mb-1">Thứ 2 - Thứ 6: 07:00 - 20:00</li>
+            <li class="mb-3">Thứ 7 - CN: 08:00 - 17:00</li>
+          </ul>
+          <a href="lienHe.html" class="btn btn-primary btn-sm">Đặt lịch khám</a>
+        </div>
+      </div>
+      <hr class="my-4" />
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center pb-4">
+        <small class="text-secondary">© 2025 MediLab. Bảo lưu mọi quyền.</small>
+        <small class="text-secondary">Giao diện sử dụng Bootstrap 5</small>
+      </div>
+    </div>
+  </footer>
+
+  <!-- script Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="./js/carousel_Bac_Si.js"></script>
+  <script>
+    const bar = document.getElementById('announcement');
+    const onScroll = () => {
+      if (!bar) return;
+      if (window.scrollY > 10) {
+        bar.classList.add('d-none');
+      } else {
+        bar.classList.remove('d-none');
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+  </script>
+</body>
+
+</html>

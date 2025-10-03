@@ -1,0 +1,1324 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bệnh viện - Trang chủ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Bootstrap Icons (dùng icon email/phone) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        .hero {
+            background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+        }
+
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: #0d6efd;
+            margin: 8px auto 0;
+            border-radius: 3px;
+        }
+
+        /* carousel tối ưu chiều cao */
+        .hero-carousel .carousel-item img {
+            height: 65vh;
+            object-fit: cover;
+        }
+
+        @media (max-width: 767.98px) {
+            .hero-carousel .carousel-item img {
+                height: 50vh;
+            }
+        }
+
+        .hero-carousel .carousel-caption {
+            background: rgba(109, 133, 131, 0.5);
+            padding: 1.5rem;
+            border-radius: .5rem;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 600px;
+        }
+
+        @media (min-width: 768px) {
+            .hero-carousel .carousel-caption {
+                padding: 2rem;
+            }
+        }
+
+        /* nút nổi: liên hệ (+/X) và back-to-top */
+        .fab {
+            position: fixed;
+            right: 16px;
+            bottom: 16px;
+            z-index: 1080;
+        }
+
+        .fab .fab-actions {
+            display: none;
+        }
+
+        .fab.open .fab-actions {
+            display: flex;
+            animation: fadeInUp .2s ease;
+        }
+
+        .fab .fab-actions a img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #fff;
+            padding: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .15);
+            transition: transform .15s ease;
+        }
+
+        .fab .fab-actions a img:hover {
+            transform: scale(1.05);
+        }
+
+        /* back-to-top luôn ở trên cùng của cột, độc lập với toggle */
+        #backToTop {
+            width: 44px;
+            height: 44px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(8px);
+            transition: opacity .25s ease, transform .25s ease;
+        }
+
+        #backToTop.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+
+        /* Section Giá trị cốt lõi */
+        .value-card {
+            border: 1px solid #e9ecef;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .1) !important;
+            border-color: var(--bs-primary);
+        }
+
+        .value-card .icon-box {
+            width: 70px;
+            height: 70px;
+            font-size: 2rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .value-card:hover .icon-box {
+            background-color: var(--bs-primary) !important;
+            color: white !important;
+        }
+
+
+
+        .departments-section .nav-pills .nav-link {
+            text-align: left;
+            border-radius: .5rem;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Tinh chỉnh trạng thái active để nổi bật hơn */
+        .departments-section .nav-pills .nav-link.active {
+            background-color: var(--bs-primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(var(--bs-primary-rgb), 0.3);
+        }
+
+        .departments-section .tab-content {
+            min-height: 350px;
+            /* Đảm bảo chiều cao đồng đều khi chuyển tab */
+        }
+
+        .department-content-wrapper {
+            padding: 1.5rem;
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: .5rem;
+            height: 100%;
+        }
+
+        .department-image {
+            max-height: 300px;
+            width: 100%;
+            object-fit: cover;
+            border-radius: .5rem;
+        }
+
+
+        /* đánh giá  */
+        .testimonials-section {
+            position: relative;
+            background-color: #f8f9fa;
+            /* Hoặc màu nền bạn muốn */
+        }
+
+        .testimonial-card {
+            background-color: #ffffff;
+            border-radius: .75rem;
+            /* 12px */
+            border: 1px solid #e9ecef;
+            padding: 2rem 1.5rem;
+            /* 32px 24px */
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-card .quote-icon {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            font-size: 4rem;
+            color: var(--bs-primary);
+            opacity: 0.1;
+            line-height: 1;
+        }
+
+        .testimonial-card blockquote {
+            font-style: italic;
+            color: #6c757d;
+            /* text-secondary */
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+            /* Đẩy phần author xuống dưới */
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+        }
+
+        .testimonial-rating {
+            margin-top: auto;
+            padding-top: 1rem;
+        }
+
+
+        /* Section Thư viện ảnh */
+        .gallery-item img {
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        /* section tin tức */
+        .news-card {
+            border: 1px solid #e9ecef;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            /* Cần thiết để hiệu ứng zoom ảnh không bị tràn */
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .1) !important;
+        }
+
+        .news-card .card-img-top {
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .news-card:hover .card-img-top {
+            transform: scale(1.05);
+            /* Hiệu ứng zoom ảnh khi hover */
+        }
+    </style>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/Bac_Si.css">
+</head>
+
+<body>
+    <!-- thanh thông báo trên cùng -->
+    <div id="announcement" class="bg-primary text-white py-1 small">
+        <div class="container d-flex flex-wrap justify-content-center justify-content-md-between gap-2">
+            <div class="d-flex align-items-center gap-3">
+                <span><i class="bi bi-envelope"></i> contact@benhvien.vn</span>
+                <span class="d-none d-sm-inline"><i class="bi bi-telephone"></i> 0906696492</span>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <a class="text-white text-decoration-none" href="lienHe.html"><i class="bi bi-geo-alt"></i> Liên hệ
+                    nhanh</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- header menu -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="#home">MediLab</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Trang Chủ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gioiThieu.html">Giới Thiệu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="bacSi.html">Bác sĩ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="chuyenKhoa.html">Chuyên Khoa</a></li>
+                    <li class="nav-item"><a class="nav-link" href="lienHe.html">Liên Hệ</a></li>
+                    <li class="ms-lg-3 mt-2 mt-lg-0">
+                        <a href="lienHe.html" class="btn btn-primary">Đặt lịch khám</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- banner carousel tự động chạy -->
+    <div id="heroCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel" data-bs-interval="3000">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true"
+                aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="./assets/carousel/hero-carousel-1.jpg" class="d-block w-100" alt="Bệnh viện hiện đại">
+                <div class="carousel-caption">
+                    <h2 class="fw-bold mb-2 mb-md-3">Chăm sóc sức khỏe toàn diện</h2>
+                    <p class="mb-3 d-none d-sm-block">Đội ngũ bác sĩ giỏi, thiết bị hiện đại, quy trình an toàn cho bạn
+                        và gia đình.</p>
+                    <div class="d-flex gap-2 justify-content-center">
+                        <a href="lienHe.html" class="btn btn-primary btn-lg"><i
+                                class="bi bi-calendar-check me-2"></i>Đặt lịch ngay</a>
+                        <a href="gioiThieu.html" class="btn btn-outline-light btn-lg d-none d-md-inline-flex"><i
+                                class="bi bi-info-circle me-2"></i>Tìm hiểu thêm</a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="./assets/carousel/hero-carousel-2.jpg" class="d-block w-100" alt="Khoa khám bệnh">
+                <div class="carousel-caption">
+                    <h2 class="fw-bold mb-2 mb-md-3">Dịch vụ y tế chất lượng cao</h2>
+                    <p class="mb-3 d-none d-sm-block">Khám và điều trị đa chuyên khoa với công nghệ tiên tiến nhất.</p>
+                    <div class="d-flex gap-2 justify-content-center">
+                        <a href="chuyenKhoa.html" class="btn btn-primary btn-lg"><i
+                                class="bi bi-hospital me-2"></i>Chuyên khoa</a>
+                        <a href="lienHe.html" class="btn btn-outline-light btn-lg d-none d-md-inline-flex"><i
+                                class="bi bi-telephone me-2"></i>Liên hệ</a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="./assets/carousel/hero-carousel-3.jpg" class="d-block w-100" alt="Đội ngũ y bác sĩ">
+                <div class="carousel-caption">
+                    <h2 class="fw-bold mb-2 mb-md-3">Đội ngũ bác sĩ chuyên môn cao</h2>
+                    <p class="mb-3 d-none d-sm-block">Bác sĩ giàu kinh nghiệm, tận tâm chăm sóc từng bệnh nhân.</p>
+                    <div class="d-flex gap-2 justify-content-center">
+                        <a href="bacSi.html" class="btn btn-primary btn-lg"><i class="bi bi-people me-2"></i>Xem bác
+                            sĩ</a>
+                        <a href="lienHe.html" class="btn btn-outline-light btn-lg d-none d-md-inline-flex"><i
+                                class="bi bi-chat-dots me-2"></i>Tư vấn</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Trước</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Sau</span>
+        </button>
+    </div>
+
+    <!-- GIỚI THIỆU  -->
+    <section id="about" class="about-section py-5">
+        <div class="container">
+            <div class="text-center mb-5 animate-on-scroll">
+                <h2 class="section-title">Giới Thiệu</h2>
+                <p class="lead text-secondary">Hệ thống bệnh viện đạt chuẩn quốc tế với nhiều chuyên khoa sâu.</p>
+            </div>
+
+            <!-- 3 điểm nổi bật -->
+            <div class="row g-4 mb-5">
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 border-0 shadow-sm feature-card animate-on-scroll">
+                        <img src="./assets/banner/abot.jpg" class="card-img-top" alt="Chăm sóc sức khỏe">
+                        <div class="card-body text-center">
+                            <div class="feature-icon-wrapper">
+                                <i class="bi bi-heart-pulse"></i>
+                            </div>
+                            <h5 class="card-title mt-3">Chăm sóc chuẩn quốc tế</h5>
+                            <p class="card-text text-secondary">Quy trình khép kín, theo dõi sát sao, đảm bảo an toàn và
+                                hiệu quả tối đa cho người bệnh.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 border-0 shadow-sm feature-card animate-on-scroll"
+                        style="animation-delay: 0.2s;">
+                        <img src="./assets/banner/thietbi.jpg" class="card-img-top" alt="Thiết bị y tế">
+                        <div class="card-body text-center">
+                            <div class="feature-icon-wrapper">
+                                <i class="bi bi-hospital"></i>
+                            </div>
+                            <h5 class="card-title mt-3">Trang thiết bị hiện đại</h5>
+                            <p class="card-text text-secondary">Luôn cập nhật và đầu tư những công nghệ chẩn đoán và
+                                điều trị tiên tiến nhất thế giới.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mx-auto">
+                    <div class="card h-100 border-0 shadow-sm feature-card animate-on-scroll"
+                        style="animation-delay: 0.4s;">
+                        <img src="./assets/banner/bacsi.jpg" class="card-img-top" alt="Đội ngũ bác sĩ">
+                        <div class="card-body text-center">
+                            <div class="feature-icon-wrapper">
+                                <i class="bi bi-people"></i>
+                            </div>
+                            <h5 class="card-title mt-3">Đội ngũ bác sĩ giỏi</h5>
+                            <p class="card-text text-secondary">Quy tụ nhiều chuyên gia, bác sĩ đầu ngành, giàu kinh
+                                nghiệm và luôn tận tâm với người bệnh.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Số liệu nổi bật -->
+            <div id="stats-counter" class="row row-cols-2 row-cols-md-4 g-4 text-center">
+                <div class="col animate-on-scroll" style="animation-delay: 0.5s;">
+                    <div class="p-4 bg-light rounded-3 h-100">
+                        <h3 class="display-6 fw-bold text-primary counter" data-target="20" data-suffix="+">0</h3>
+                        <p class="text-secondary mb-0">Chuyên khoa</p>
+                    </div>
+                </div>
+                <div class="col animate-on-scroll" style="animation-delay: 0.6s;">
+                    <div class="p-4 bg-light rounded-3 h-100">
+                        <h3 class="display-6 fw-bold text-primary counter" data-target="150" data-suffix="+">0</h3>
+                        <p class="text-secondary mb-0">Bác sĩ & Nhân viên</p>
+                    </div>
+                </div>
+                <div class="col animate-on-scroll" style="animation-delay: 0.7s;">
+                    <div class="p-4 bg-light rounded-3 h-100">
+                        <h3 class="display-6 fw-bold text-primary counter" data-target="1000000" data-format="comma">0
+                        </h3>
+                        <p class="text-secondary mb-0">Lượt khám mỗi năm</p>
+                    </div>
+                </div>
+                <div class="col animate-on-scroll" style="animation-delay: 0.8s;">
+                    <div class="p-4 bg-light rounded-3 h-100">
+                        <h3 class="display-6 fw-bold text-primary counter" data-target="98" data-suffix="%">0</h3>
+                        <p class="text-secondary mb-0">Bệnh nhân hài lòng</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- danh sách bác sĩ -->
+    <section id="doctors" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Đội Ngũ Bác Sĩ Chuyên Môn Cao</h2>
+                <p class="text-secondary lead">Gặp gỡ các chuyên gia tận tâm, luôn đặt sức khỏe của bạn lên hàng đầu.
+                </p>
+            </div>
+
+            <!-- Carousel Bác sĩ -->
+            <div class="swiper doctor-swiper">
+                <div class="swiper-wrapper">
+                    <!-- Slide 1 -->
+                    <div class="swiper-slide">
+                        <div class="doctor-card">
+                            <img src="./assets/doctor/leedohyun.jpg" alt="Bác sĩ Nguyễn An" />
+                            <div class="doctor-card-overlay">
+                                <span class="doctor-specialty">Tim mạch</span>
+                                <h4 class="doctor-name">BS.CKII Nguyễn An</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div class="swiper-slide">
+                        <div class="doctor-card">
+                            <img src="./assets/doctor/leesuk.jpg" alt="Bác sĩ Trần Bình" />
+                            <div class="doctor-card-overlay">
+                                <span class="doctor-specialty">Nhi khoa</span>
+                                <h4 class="doctor-name">ThS.BS Trần Bình</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div class="swiper-slide">
+                        <div class="doctor-card">
+                            <img src="./assets/doctor/han.jpg" alt="Bác sĩ Lê Chi" />
+                            <div class="doctor-card-overlay">
+                                <span class="doctor-specialty">Thần kinh</span>
+                                <h4 class="doctor-name">BS. Lê Thị Chi</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 4 -->
+                    <div class="swiper-slide">
+                        <div class="doctor-card">
+                            <img src="./assets/doctor/parkshin-hye.jpg" alt="Bác sĩ Phạm Dung" />
+                            <div class="doctor-card-overlay">
+                                <span class="doctor-specialty">Ngoại tổng quát</span>
+                                <h4 class="doctor-name">BS. Phạm Thị Dung</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 5 (Thêm) -->
+                    <div class="swiper-slide">
+                        <div class="doctor-card">
+                            <img src="./assets/doctor/leedongwoook.jpg" alt="Bác sĩ Vũ Mạnh" />
+                            <div class="doctor-card-overlay">
+                                <span class="doctor-specialty">Da liễu</span>
+                                <h4 class="doctor-name">BS. Vũ Hùng Mạnh</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nút điều hướng -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+
+            <!-- Phân trang (dấu chấm) -->
+            <div class="swiper-pagination mt-4"></div>
+        </div>
+    </section>
+
+    <!-- GIÁ TRỊ CỐT LÕI -->
+    <section id="core-values" class="py-5 ">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Giá Trị Cốt Lõi</h2>
+                <p class="lead text-secondary">Những giá trị kim chỉ nam cho mọi hoạt động của chúng tôi.</p>
+            </div>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 text-center">
+                <!-- Giá trị 1 -->
+                <div class="col">
+                    <div class="card value-card h-100 p-4 rounded-3 shadow-sm">
+                        <div
+                            class="icon-box bg-primary-subtle text-primary rounded-circle mx-auto d-flex align-items-center justify-content-center">
+                            <i class="bi bi-person-check-fill"></i>
+                        </div>
+                        <h5 class="card-title mt-4">Chuyên Môn</h5>
+                        <p class="card-text text-secondary">Đội ngũ y bác sĩ có trình độ cao, luôn cập nhật kiến thức y
+                            khoa tiên
+                            tiến.</p>
+                    </div>
+                </div>
+                <!-- Giá trị 2 -->
+                <div class="col">
+                    <div class="card value-card h-100 p-4 rounded-3 shadow-sm">
+                        <div
+                            class="icon-box bg-primary-subtle text-primary rounded-circle mx-auto d-flex align-items-center justify-content-center">
+                            <i class="bi bi-hand-thumbs-up-fill"></i>
+                        </div>
+                        <h5 class="card-title mt-4">Tận Tâm</h5>
+                        <p class="card-text text-secondary">Phục vụ bằng cả trái tim, xem bệnh nhân như người thân trong
+                            gia đình.
+                        </p>
+                    </div>
+                </div>
+                <!-- Giá trị 3 -->
+                <div class="col">
+                    <div class="card value-card h-100 p-4 rounded-3 shadow-sm">
+                        <div
+                            class="icon-box bg-primary-subtle text-primary rounded-circle mx-auto d-flex align-items-center justify-content-center">
+                            <i class="bi bi-lightbulb-fill"></i>
+                        </div>
+                        <h5 class="card-title mt-4">Sáng Tạo</h5>
+                        <p class="card-text text-secondary">Luôn đi đầu trong việc ứng dụng công nghệ và phương pháp
+                            điều trị mới.
+                        </p>
+                    </div>
+                </div>
+                <!-- Giá trị 4 -->
+                <div class="col">
+                    <div class="card value-card h-100 p-4 rounded-3 shadow-sm">
+                        <div
+                            class="icon-box bg-primary-subtle text-primary rounded-circle mx-auto d-flex align-items-center justify-content-center">
+                            <i class="bi bi-link-45deg"></i>
+                        </div>
+                        <h5 class="card-title mt-4">Trách Nhiệm</h5>
+                        <p class="card-text text-secondary">Cam kết mang lại kết quả điều trị tốt nhất và sự an toàn
+                            tuyệt đối cho
+                            bệnh nhân.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- chuyên khoa -->
+    <section id="departments" class="py-5 bg-light departments-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Chuyên Khoa Mũi Nhọn</h2>
+                <p class="lead text-secondary">Khám phá các dịch vụ chuyên sâu được dẫn dắt bởi đội ngũ chuyên gia hàng
+                    đầu.</p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Cột bên trái: Danh sách các Tab Chuyên khoa -->
+                <div class="col-lg-4">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <!-- Tab 1 -->
+                        <button class="nav-link active" id="v-pills-cardiology-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-cardiology" type="button" role="tab"
+                            aria-controls="v-pills-cardiology" aria-selected="true">
+                            <i class="bi bi-heart-pulse-fill me-2"></i> Tim mạch
+                        </button>
+                        <!-- Tab 2 -->
+                        <button class="nav-link" id="v-pills-neurology-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-neurology" type="button" role="tab"
+                            aria-controls="v-pills-neurology" aria-selected="false">
+                            <i class="bi bi-person-arms-up me-2"></i> Thần kinh
+                        </button>
+                        <!-- Tab 3 -->
+                        <button class="nav-link" id="v-pills-pediatrics-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-pediatrics" type="button" role="tab"
+                            aria-controls="v-pills-pediatrics" aria-selected="false">
+                            <i class="bi bi-bandaid-fill me-2"></i> Nhi khoa
+                        </button>
+                        <!-- Tab 4 -->
+                        <button class="nav-link" id="v-pills-obstetrics-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-obstetrics" type="button" role="tab"
+                            aria-controls="v-pills-obstetrics" aria-selected="false">
+                            <i class="bi bi-gender-female me-2"></i> Sản - Phụ khoa
+                        </button>
+                        <!-- Tab 5 -->
+                        <button class="nav-link" id="v-pills-general-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-general" type="button" role="tab" aria-controls="v-pills-general"
+                            aria-selected="false">
+                            <i class="bi bi-clipboard2-pulse-fill me-2"></i> Nội tổng quát
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Cột bên phải: Nội dung chi tiết của từng Tab -->
+                <div class="col-lg-8">
+                    <div class="tab-content" id="v-pills-tabContent">
+
+                        <!-- Nội dung Tab 1: Tim mạch -->
+                        <div class="tab-pane fade show active" id="v-pills-cardiology" role="tabpanel"
+                            aria-labelledby="v-pills-cardiology-tab">
+                            <div class="department-content-wrapper">
+                                <div class="row align-items-center g-4">
+                                    <div class="col-md-7">
+                                        <h3>Tim mạch</h3>
+                                        <p class="text-secondary">Khám và điều trị các bệnh lý tim mạch với hệ thống máy
+                                            móc hiện đại, can thiệp ít xâm lấn, giúp bệnh nhân hồi phục nhanh chóng.</p>
+                                        <ul class="list-unstyled">
+                                            <li><i class="bi bi-check-circle-fill text-success me-2"></i>Khám sàng lọc,
+                                                phát hiện sớm bệnh</li>
+                                            <li><i class="bi bi-check-circle-fill text-success me-2"></i>Siêu âm tim,
+                                                điện tâm đồ gắng sức</li>
+                                            <li><i class="bi bi-check-circle-fill text-success me-2"></i>Can thiệp mạch
+                                                vành, đặt stent</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <img src="./assets/chuyenKhoa/tim.jpg" alt="Tim mạch"
+                                            class="department-image shadow">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Nội dung Tab 2: Thần kinh -->
+                        <div class="tab-pane fade" id="v-pills-neurology" role="tabpanel"
+                            aria-labelledby="v-pills-neurology-tab">
+                            <div class="department-content-wrapper">
+                                <div class="row align-items-center g-4">
+                                    <div class="col-md-7">
+                                        <h3>Thần kinh</h3>
+                                        <p class="text-secondary">Chuyên chẩn đoán và điều trị các bệnh lý liên quan đến
+                                            hệ thần kinh trung ương và ngoại biên, bao gồm đột quỵ, đau đầu, động kinh.
+                                        </p>
+                                        <ul class="list-unstyled">
+                                            <li><i class="bi bi-check-circle-fill text-success me-2"></i>Tầm soát và
+                                                điều trị đột quỵ</li>
+                                            <li><i class="bi bi-check-circle-fill text-success me-2"></i>Điều trị rối
+                                                loạn giấc ngủ, trí nhớ</li>
+                                            <li><i class="bi bi-check-circle-fill text-success me-2"></i>Phục hồi chức
+                                                năng sau tai biến</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <img src="./assets/chuyenKhoa/thanKinh.jpg" alt="Thần kinh"
+                                            class="department-image shadow">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Nội dung Tab 3: Nhi khoa -->
+                        <div class="tab-pane fade" id="v-pills-pediatrics" role="tabpanel"
+                            aria-labelledby="v-pills-pediatrics-tab">
+                            <div class="department-content-wrapper">
+                                <div class="row align-items-center g-4">
+                                    <div class="col-md-7">
+                                        <h3>Nhi khoa</h3>
+                                        <p class="text-secondary">Chăm sóc sức khỏe toàn diện cho trẻ từ sơ sinh đến vị
+                                            thành niên, với không gian khám chữa bệnh thân thiện, an toàn cho trẻ.</p>
+                                        <ul class="list-unstyled">
+                                            <li><i class="bi bi-check-circle-fill text-success me-2"></i>Khám sức khỏe
+                                                tổng quát định kỳ</li>
+                                            <li><i class="bi bi-check-circle-fill text-success me-2"></i>Tiêm chủng theo
+                                                chương trình quốc gia</li>
+                                            <li><i class="bi bi-check-circle-fill text-success me-2"></i>Tư vấn dinh
+                                                dưỡng và phát triển</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <img src="./assets/chuyenKhoa/nhi.jpg" alt="Nhi khoa"
+                                            class="department-image shadow">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Nội dung Tab 4: Sản - Phụ khoa-->
+                        <div class="tab-pane fade" id="v-pills-obstetrics" role="tabpanel"
+                            aria-labelledby="v-pills-obstetrics-tab">
+                            <div class="department-content-wrapper">
+                                <div class="row align-items-center g-4">
+                                    <div class="col-md-7">
+                                        <h3>Sản - Phụ khoa</h3>
+                                        <p class="text-secondary">Cung cấp dịch vụ chăm sóc toàn diện sức khỏe sinh sản
+                                            cho phụ nữ, từ khám phụ khoa định kỳ, theo dõi thai kỳ đến các phẫu thuật
+                                            phức tạp.</p>
+                                        <ul class="list-unstyled">
+                                            <li><i class="bi bi-check-circle-fill text-success me-2"></i>Theo dõi thai
+                                                kỳ khỏe mạnh, an toàn</li>
+                                            <li><i class="bi bi-check-circle-fill text-success me-2"></i>Tầm soát ung
+                                                thư cổ tử cung, vú</li>
+                                            <li><i class="bi bi-check-circle-fill text-success me-2"></i>Tư vấn kế hoạch
+                                                hóa gia đình</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <img src="./assets/chuyenKhoa/san.jpg" alt="Sản - Phụ khoa"
+                                            class="department-image shadow">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Nội dung Tab 5: Nội tổng quát -->
+                        <div class="tab-pane fade" id="v-pills-general" role="tabpanel"
+                            aria-labelledby="v-pills-general-tab">
+                            <div class="department-content-wrapper">
+                                <div class="row align-items-center g-4">
+                                    <div class="col-md-7">
+                                        <h3>Nội tổng quát</h3>
+                                        <p class="text-secondary">Là chuyên khoa ban đầu tiếp nhận và xử lý phần lớn các
+                                            bệnh lý nội khoa phổ biến ở người trưởng thành, phối hợp với các chuyên khoa
+                                            khác.</p>
+                                        <ul class="list-unstyled">
+                                            <li><i class="bi bi-check-circle-fill text-success me-2"></i>Khám sức khỏe
+                                                tổng quát, định kỳ</li>
+                                            <li><i class="bi bi-check-circle-fill text-success me-2"></i>Quản lý bệnh
+                                                mạn tính (tiểu đường, cao huyết áp)</li>
+                                            <li><i class="bi bi-check-circle-fill text-success me-2"></i>Tư vấn phòng
+                                                bệnh và tiêm ngừa</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <img src="./assets/chuyenKhoa/noi.jpg" alt="Nội tổng quát"
+                                            class="department-image shadow">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Nút Xem Thêm -->
+                    <div class="text-center text-lg-start mt-4">
+                        <a href="chuyenKhoa.html" class="btn btn-outline-primary">
+                            Xem tất cả chuyên khoa <i class="bi bi-arrow-right-short"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- thư viện ảnh -->
+    <section id="gallery" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Cơ Sở Vật Chất & Hình Ảnh</h2>
+                <p class="lead text-secondary">Không gian khám chữa bệnh hiện đại, sạch sẽ và thân thiện.</p>
+            </div>
+            <div class="row g-3">
+                <div class="col-lg-3 col-md-6 col-6 gallery-item"><img class="img-fluid rounded shadow-sm w-100"
+                        style="height: 200px; object-fit: cover;" src="./assets/gallery/gallery-1.jpg"
+                        alt="Phòng phẫu thuật"></div>
+                <div class="col-lg-3 col-md-6 col-6 gallery-item"><img class="img-fluid rounded shadow-sm w-100"
+                        style="height: 200px; object-fit: cover;" src="./assets/gallery/gallery-2.jpg"
+                        alt="Phòng xét nghiệm"></div>
+                <div class="col-lg-3 col-md-6 col-6 gallery-item"><img class="img-fluid rounded shadow-sm w-100"
+                        style="height: 200px; object-fit: cover;" src="./assets/gallery/gallery-3.jpg"
+                        alt="Nghiên cứu khoa học"></div>
+                <div class="col-lg-3 col-md-6 col-6 gallery-item"><img class="img-fluid rounded shadow-sm w-100"
+                        style="height: 200px; object-fit: cover;" src="./assets/gallery/gallery-4.jpg"
+                        alt="Bác sĩ phẫu thuật"></div>
+                <div class="col-lg-3 col-md-6 col-6 gallery-item"><img class="img-fluid rounded shadow-sm w-100"
+                        style="height: 200px; object-fit: cover;" src="./assets/gallery/gallery-5.jpg"
+                        alt="Bác sĩ tư vấn"></div>
+                <div class="col-lg-3 col-md-6 col-6 gallery-item"><img class="img-fluid rounded shadow-sm w-100"
+                        style="height: 200px; object-fit: cover;" src="./assets/gallery/gallery-6.jpg" alt="Phòng bệnh">
+                </div>
+                <div class="col-lg-3 col-md-6 col-6 gallery-item"><img class="img-fluid rounded shadow-sm w-100"
+                        style="height: 200px; object-fit: cover;" src="./assets/gallery/gallery-7.jpg" alt="Máy MRI">
+                </div>
+                <div class="col-lg-3 col-md-6 col-6 gallery-item"><img class="img-fluid rounded shadow-sm w-100"
+                        style="height: 200px; object-fit: cover;" src="./assets/gallery/gallery-8.jpg"
+                        alt="Thiết bị y tế"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Đánh giá  -->
+    <section id="testimonials" class="py-5 testimonials-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Bệnh Nhân Nói Về Chúng Tôi</h2>
+                <p class="lead text-secondary">Sự hài lòng của bạn là động lực lớn nhất của chúng tôi.</p>
+            </div>
+
+            <!-- Carousel Testimonials -->
+            <div class="swiper testimonials-swiper">
+                <div class="swiper-wrapper">
+
+                    <!-- Slide 1 -->
+                    <div class="swiper-slide">
+                        <div class="testimonial-card shadow-sm">
+                            <div class="quote-icon">“</div>
+                            <blockquote class="mb-4">
+                                Tôi thực sự ấn tượng với sự chuyên nghiệp và tận tâm của đội ngũ bác sĩ tại đây. Cơ sở
+                                vật chất rất hiện đại và sạch sẽ. Cảm ơn bệnh viện rất nhiều!
+                            </blockquote>
+                            <div class="testimonial-rating">
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                            </div>
+                            <div class="testimonial-author mt-3">
+                                <img src="./assets/testimonials/testimonials-1.jpg" alt="Author 1"
+                                    class="img-fluid rounded-circle me-3">
+                                <div>
+                                    <h6 class="fw-bold mb-0">Trần Văn An</h6>
+                                    <small class="text-secondary">Bệnh nhân khoa Tim mạch</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div class="swiper-slide">
+                        <div class="testimonial-card shadow-sm">
+                            <div class="quote-icon">“</div>
+                            <blockquote class="mb-4">
+                                Đưa con đi khám ở đây rất yên tâm. Các bác sĩ Nhi khoa rất tâm lý, dỗ dành bé để bé
+                                không sợ. Quy trình nhanh gọn, không phải chờ đợi lâu.
+                            </blockquote>
+                            <div class="testimonial-rating">
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                            </div>
+                            <div class="testimonial-author mt-3">
+                                <img src="./assets/testimonials/testimonials-2.jpg" alt="Author 2"
+                                    class="img-fluid rounded-circle me-3">
+                                <div>
+                                    <h6 class="fw-bold mb-0">Lê Thị Bích</h6>
+                                    <small class="text-secondary">Người nhà bệnh nhi</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div class="swiper-slide">
+                        <div class="testimonial-card shadow-sm">
+                            <div class="quote-icon">“</div>
+                            <blockquote class="mb-4">
+                                Dịch vụ khám sức khỏe tổng quát rất chi tiết và cẩn thận. Bác sĩ tư vấn rõ ràng, dễ
+                                hiểu. Tôi sẽ quay lại đây cho lần khám định kỳ tiếp theo.
+                            </blockquote>
+                            <div class="testimonial-rating">
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-half text-warning"></i>
+                            </div>
+                            <div class="testimonial-author mt-3">
+                                <img src="./assets/testimonials/testimonials-3.jpg" alt="Author 3"
+                                    class="img-fluid rounded-circle me-3">
+                                <div>
+                                    <h6 class="fw-bold mb-0">Phạm Hùng Dũng</h6>
+                                    <small class="text-secondary">Khám sức khỏe định kỳ</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 4 (Thêm) -->
+                    <div class="swiper-slide">
+                        <div class="testimonial-card shadow-sm">
+                            <div class="quote-icon">“</div>
+                            <blockquote class="mb-4">
+                                Đội ngũ điều dưỡng chăm sóc rất chu đáo sau ca phẫu thuật của tôi. Luôn hỏi han và hỗ
+                                trợ kịp thời. Rất biết ơn sự chăm sóc này.
+                            </blockquote>
+                            <div class="testimonial-rating">
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                            </div>
+                            <div class="testimonial-author mt-3">
+                                <img src="./assets/testimonials/testimonials-4.jpg" alt="Author 4"
+                                    class="img-fluid rounded-circle me-3">
+                                <div>
+                                    <h6 class="fw-bold mb-0">Nguyễn Thu Hà</h6>
+                                    <small class="text-secondary">Bệnh nhân khoa Ngoại</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Phân trang (dấu chấm) -->
+                <div class="swiper-pagination mt-4 position-relative"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- tin tức -->
+    <section id="news" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Tin Tức Y Khoa</h2>
+                <p class="lead text-secondary">Cập nhật những thông tin y tế mới nhất, chính xác từ đội ngũ chuyên gia
+                    của
+                    chúng tôi.</p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Bài viết 1: Sốt Xuất Huyết -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card news-card h-100 shadow-sm">
+                        <img src="./assets/sot-xuat-huyet.png" class="card-img-top"
+                            alt="Muỗi vằn truyền bệnh sốt xuất huyết">
+                        <div class="card-body d-flex flex-column">
+                            <div class="mb-2">
+                                <span class="badge text-bg-danger">Bệnh Truyền Nhiễm</span>
+                            </div>
+                            <h5 class="card-title">Sốt Xuất Huyết: Dấu Hiệu Nhận Biết Sớm Và Cách Xử Trí</h5>
+                            <p class="card-text text-secondary">Mùa mưa là thời điểm bệnh sốt xuất huyết bùng phát. Nhận
+                                biết
+                                sớm các triệu chứng như sốt cao, đau đầu, phát ban để được điều trị kịp thời...</p>
+                            <a href="#" class="btn btn-outline-primary mt-auto">Đọc thêm <i
+                                    class="bi bi-arrow-right-short"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bài viết 2: COVID-19 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card news-card h-100 shadow-sm">
+                        <img src="./assets/covid.jpg" class="card-img-top" alt="Phòng ngừa lây nhiễm COVID-19">
+                        <div class="card-body d-flex flex-column">
+                            <div class="mb-2">
+                                <span class="badge text-bg-warning">Sức Khỏe Cộng Đồng</span>
+                            </div>
+                            <h5 class="card-title">Phòng Ngừa COVID-19: Các Biện Pháp Mới Nhất Cần Biết</h5>
+                            <p class="card-text text-secondary">Dù đã qua giai đoạn căng thẳng nhất, việc duy trì các
+                                biện
+                                pháp phòng ngừa cá nhân như đeo khẩu trang, rửa tay vẫn rất quan trọng...</p>
+                            <a href="#" class="btn btn-outline-primary mt-auto">Đọc thêm <i
+                                    class="bi bi-arrow-right-short"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bài viết 3: Bệnh Dại -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card news-card h-100 shadow-sm">
+                        <img src="./assets/cho-dai.jpg" class="card-img-top" alt="Tiêm phòng dại cho chó">
+                        <div class="card-body d-flex flex-column">
+                            <div class="mb-2">
+                                <span class="badge text-bg-dark">Cảnh Báo Y Tế</span>
+                            </div>
+                            <h5 class="card-title">Bệnh Dại: Mức Độ Nguy Hiểm Và Tầm Quan Trọng Của Tiêm Phòng</h5>
+                            <p class="card-text text-secondary">Bệnh dại có tỷ lệ tử vong gần như 100% khi đã phát bệnh.
+                                Tiêm
+                                phòng ngay sau khi bị động vật cắn là biện pháp duy nhất để bảo vệ tính mạng...</p>
+                            <a href="#" class="btn btn-outline-primary mt-auto">Đọc thêm <i
+                                    class="bi bi-arrow-right-short"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- liên hệ -->
+    <section id="contact" class="py-5 ">
+        <div class="container">
+            <div class="text-center mb-4">
+                <h2 class="section-title">Liên Hệ</h2>
+                <p class="text-secondary">Đặt lịch khám hoặc gửi câu hỏi cho chúng tôi.</p>
+            </div>
+            <div class="row g-4 align-items-center">
+                <!-- ảnh bác sĩ bên trái -->
+                <div class="col-lg-6">
+                    <div class="text-center text-lg-start">
+                        <img src="assets/doctor/about-bg.jpg" alt="Bác sĩ" class="img-fluid rounded-3 shadow-sm">
+                    </div>
+                </div>
+
+                <!-- form đặt lịch bên phải -->
+                <div class="col-lg-6">
+                    <div class="card border-0 shadow-sm rounded-3 bg-white">
+                        <div class="card-body p-4 p-lg-5">
+                            <h3 class="h4 fw-bold mb-4">Đặt lịch khám</h3>
+                            <div id="appointmentAlert" class="alert alert-success d-none mb-4" role="alert">Cảm ơn bạn
+                                đã đăng ký. Chúng tôi sẽ liên hệ xác nhận lịch trong thời gian sớm nhất.</div>
+                            <form id="appointmentForm" class="needs-validation" novalidate>
+                                <div class="row g-3">
+                                    <div class="col-sm-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="apptFullname"
+                                                placeholder="Họ và tên" required>
+                                            <label for="apptFullname">Họ và tên</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-floating">
+                                            <input type="email" class="form-control" id="apptEmail" placeholder="Email"
+                                                required>
+                                            <label for="apptEmail">Email</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-floating">
+                                            <input type="date" class="form-control" id="apptDate" placeholder="Ngày hẹn"
+                                                required>
+                                            <label for="apptDate">Ngày hẹn</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-floating">
+                                            <select class="form-select" id="apptDept" aria-label="Chọn chuyên khoa"
+                                                required>
+                                                <option value="" selected disabled>Chọn chuyên khoa</option>
+                                                <option value="Tổng quát">Tổng quát</option>
+                                                <option value="Tim mạch">Tim mạch</option>
+                                                <option value="Nhi khoa">Nhi khoa</option>
+                                                <option value="Thần kinh">Thần kinh</option>
+                                                <option value="Ngoại tổng quát">Ngoại tổng quát</option>
+                                            </select>
+                                            <label for="apptDept">Chuyên khoa</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-floating">
+                                            <input type="tel" class="form-control" id="apptPhone"
+                                                placeholder="Số điện thoại" required>
+                                            <label for="apptPhone">Số điện thoại</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <textarea class="form-control" placeholder="Ghi chú" id="apptNote"
+                                                style="height: 120px"></textarea>
+                                            <label for="apptNote">Ghi chú</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 d-grid">
+                                        <button type="submit" class="btn btn-primary btn-lg">Gửi yêu cầu</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                (function () {
+                    const form = document.getElementById('appointmentForm');
+                    const alertBox = document.getElementById('appointmentAlert');
+                    if (!form) return;
+                    form.addEventListener('submit', function (e) {
+                        e.preventDefault();
+                        if (!form.checkValidity()) {
+                            e.stopPropagation();
+                            form.classList.add('was-validated');
+                            return;
+                        }
+                        if (alertBox) alertBox.classList.remove('d-none');
+                        form.reset();
+                        form.classList.remove('was-validated');
+                        setTimeout(() => { if (alertBox) alertBox.classList.add('d-none'); }, 4000);
+                    });
+                })();
+            </script>
+        </div>
+    </section>
+
+
+    <!-- footer -->
+    <footer class="bg-light border-top pt-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5 class="fw-bold text-primary">MediLab</h5>
+                    <p class="mb-1">12 Trịnh Định Thảo, Phường Hòa Thạnh, Quận Tân Phú, TP. Hồ Chí Minh</p>
+                    <p class="mb-1"><span class="fw-semibold">Điện thoại:</span> 0906696492</p>
+                    <p class="mb-3"><span class="fw-semibold">Email:</span> contact@benhvien.vn</p>
+                    <div class="d-flex gap-2">
+                        <a class="btn btn-outline-secondary btn-sm" href="#" aria-label="Facebook"><i
+                                class="bi bi-facebook"></i></a>
+                        <a class="btn btn-outline-secondary btn-sm" href="#" aria-label="YouTube"><i
+                                class="bi bi-youtube"></i></a>
+                        <a class="btn btn-outline-secondary btn-sm" href="#" aria-label="Instagram"><i
+                                class="bi bi-instagram"></i></a>
+                        <a class="btn btn-outline-secondary btn-sm" href="#" aria-label="LinkedIn"><i
+                                class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h6 class="fw-semibold mb-3">Liên kết</h6>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2"><a class="text-decoration-none text-secondary" href="index.html">Trang Chủ</a>
+                        </li>
+                        <li class="mb-2"><a class="text-decoration-none text-secondary" href="gioiThieu.html">Giới
+                                Thiệu</a></li>
+                        <li class="mb-2"><a class="text-decoration-none text-secondary" href="bacSi.html">Bác sĩ</a>
+                        </li>
+                        <li class="mb-2"><a class="text-decoration-none text-secondary" href="chuyenKhoa.html">Chuyên
+                                Khoa</a></li>
+                        <li><a class="text-decoration-none text-secondary" href="lienHe.html">Liên Hệ</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <h6 class="fw-semibold mb-3">Dịch vụ</h6>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2">Khám tổng quát</li>
+                        <li class="mb-2">Chẩn đoán hình ảnh</li>
+                        <li class="mb-2">Xét nghiệm</li>
+                        <li class="mb-2">Tư vấn chuyên khoa</li>
+                        <li>Điều trị ngoại trú</li>
+                    </ul>
+                </div>
+                <div class="col-12 col-lg-3">
+                    <h6 class="fw-semibold mb-3">Giờ làm việc</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-1">Thứ 2 - Thứ 6: 07:00 - 20:00</li>
+                        <li class="mb-3">Thứ 7 - CN: 08:00 - 17:00</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary btn-sm">Đặt lịch khám</a>
+                </div>
+            </div>
+            <hr class="my-4" />
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center pb-4">
+                <small class="text-secondary">© 2025 MediLab. Bảo lưu mọi quyền.</small>
+                <small class="text-secondary">Giao diện sử dụng Bootstrap 5</small>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- nút scroll to top và nút liên hệ (Messenger, Zalo, Gọi điện) -->
+    <div id="contactFab" class="fab">
+        <div class="d-flex flex-column align-items-center gap-2">
+            <a href="#" id="backToTop"
+                class="btn btn-primary rounded-circle shadow d-flex align-items-center justify-content-center"
+                aria-label="Lên đầu trang">
+                <i class="bi bi-arrow-up"></i>
+            </a>
+            <div class="fab-actions flex-column align-items-center">
+                <a href="https://m.me/facebook" target="_blank" rel="noopener" class="d-inline-block"
+                    aria-label="Messenger">
+                    <img src="assets/messager.png" alt="Messenger" />
+                </a>
+                <a href="https://zalo.me/0906696492" target="_blank" rel="noopener" class="d-inline-block"
+                    aria-label="Zalo">
+                    <img src="assets/zalo.png" alt="Zalo" />
+                </a>
+                <a href="tel:0906696492" class="d-inline-block" aria-label="Gọi điện">
+                    <img src="assets/phone.png" alt="Gọi điện" />
+                </a>
+            </div>
+            <button id="fabToggle" type="button" class="btn btn-danger rounded-circle shadow" aria-expanded="false"
+                aria-label="Mở liên hệ" style="width:48px;height:48px;font-size:24px;line-height:1">+</button>
+        </div>
+    </div>
+
+    <!-- script Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="./js/carousel_Bac_Si.js"></script>
+    <script src="./js/carousel_Danh_Gia.js"></script>
+    <script>
+        const bar = document.getElementById('announcement');
+        const fab = document.getElementById('contactFab');
+        const fabToggle = document.getElementById('fabToggle');
+        const backToTop = document.getElementById('backToTop');
+
+        // mở sẵn 3 nút liên hệ khi vào trang
+        if (fab) {
+            fab.classList.add('open');
+            if (fabToggle) {
+                fabToggle.textContent = '×';
+                fabToggle.setAttribute('aria-expanded', 'true');
+                fabToggle.setAttribute('aria-label', 'Đóng liên hệ');
+            }
+        }
+
+        // toggle nút nổi: + <-> X và ẩn/hiện 3 icon
+        if (fabToggle && fab) {
+            fabToggle.addEventListener('click', () => {
+                const open = fab.classList.toggle('open');
+                fabToggle.textContent = open ? '×' : '+';
+                fabToggle.setAttribute('aria-expanded', String(open));
+                fabToggle.setAttribute('aria-label', open ? 'Đóng liên hệ' : 'Mở liên hệ');
+            });
+        }
+
+        // hiện nút Back-to-top sau khi cuộn; ẩn thanh thông báo khi rời top
+        const onScroll = () => {
+            if (bar) {
+                if (window.scrollY > 10) bar.classList.add('d-none');
+                else bar.classList.remove('d-none');
+            }
+            if (backToTop) {
+                if (window.scrollY > 300) backToTop.classList.add('show');
+                else backToTop.classList.remove('show');
+            }
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        // set trạng thái ban đầu khi vừa vào trang
+        onScroll();
+
+        // click lên đầu trang mượt mà
+        if (backToTop) {
+            backToTop.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            function animateCounter(el, target, suffix, duration = 1200) {
+                let start = 0;
+                let startTime = null;
+                let isMillion = suffix === "M+";
+                let displayTarget = target;
+                if (isMillion) displayTarget = 1; // For 1M+
+                function step(timestamp) {
+                    if (!startTime) startTime = timestamp;
+                    let progress = Math.min((timestamp - startTime) / duration, 1);
+                    let value = Math.floor(progress * target);
+                    if (isMillion) {
+                        el.textContent = (progress < 1 ? (value / 1000000).toFixed(1) : "1") + "M+";
+                    } else {
+                        el.textContent = value + suffix;
+                    }
+                    if (progress < 1) {
+                        requestAnimationFrame(step);
+                    } else {
+                        if (isMillion) el.textContent = "1M+";
+                        else el.textContent = target + suffix;
+                    }
+                }
+                requestAnimationFrame(step);
+            }
+
+            function runCounters() {
+                document.querySelectorAll('.counter').forEach(function (el) {
+                    let target = parseInt(el.getAttribute('data-target'), 10);
+                    let suffix = el.getAttribute('data-suffix') || '';
+                    animateCounter(el, target, suffix);
+                });
+            }
+
+            // Trigger when counters are in viewport
+            let countersSection = document.getElementById('about');
+            let hasRun = false;
+            function onScroll() {
+                if (hasRun) return;
+                let rect = countersSection.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    runCounters();
+                    hasRun = true;
+                    window.removeEventListener('scroll', onScroll);
+                }
+            }
+            window.addEventListener('scroll', onScroll);
+            onScroll();
+        });
+    </script>
+</body>
+
+</html>
