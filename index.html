@@ -14,6 +14,7 @@
             background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
         }
 
+        /* banner carousel  */
         .section-title::after {
             content: "";
             display: block;
@@ -53,66 +54,6 @@
             }
         }
 
-        /* nút nổi: liên hệ (+/X) và back-to-top */
-        .fab {
-            position: fixed;
-            right: 16px;
-            bottom: 16px;
-            z-index: 1080;
-        }
-
-        .fab .fab-actions {
-            display: none;
-        }
-
-        .fab.open .fab-actions {
-            display: flex;
-            animation: fadeInUp .2s ease;
-        }
-
-        .fab .fab-actions a img {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: #fff;
-            padding: 4px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, .15);
-            transition: transform .15s ease;
-        }
-
-        .fab .fab-actions a img:hover {
-            transform: scale(1.05);
-        }
-
-        /* back-to-top luôn ở trên cùng của cột, độc lập với toggle */
-        #backToTop {
-            width: 44px;
-            height: 44px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(8px);
-            transition: opacity .25s ease, transform .25s ease;
-        }
-
-        #backToTop.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(6px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-
 
         /* Section Giá trị cốt lõi */
         .value-card {
@@ -139,7 +80,7 @@
         }
 
 
-
+        /* section chuyên khoa */
         .departments-section .nav-pills .nav-link {
             text-align: left;
             border-radius: .5rem;
@@ -148,7 +89,6 @@
             margin-bottom: 0.5rem;
         }
 
-        /* Tinh chỉnh trạng thái active để nổi bật hơn */
         .departments-section .nav-pills .nav-link.active {
             background-color: var(--bs-primary);
             color: white;
@@ -176,7 +116,7 @@
         }
 
 
-        /* đánh giá  */
+        /* section đánh giá  */
         .testimonials-section {
             position: relative;
             background-color: #f8f9fa;
@@ -269,6 +209,7 @@
     </style>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/Bac_Si.css">
+    <link rel="stylesheet" href="./css/back_to_top.css">
 </head>
 
 <body>
@@ -298,12 +239,10 @@
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
                     <li class="nav-item"><a class="nav-link active" href="index.html">Trang Chủ</a></li>
                     <li class="nav-item"><a class="nav-link" href="gioiThieu.html">Giới Thiệu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tinTuc.html">Tin Tức</a></li>
                     <li class="nav-item"><a class="nav-link" href="bacSi.html">Bác sĩ</a></li>
                     <li class="nav-item"><a class="nav-link" href="chuyenKhoa.html">Chuyên Khoa</a></li>
                     <li class="nav-item"><a class="nav-link" href="lienHe.html">Liên Hệ</a></li>
-                    <li class="ms-lg-3 mt-2 mt-lg-0">
-                        <a href="lienHe.html" class="btn btn-primary">Đặt lịch khám</a>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -1220,55 +1159,8 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="./js/carousel_Bac_Si.js"></script>
     <script src="./js/carousel_Danh_Gia.js"></script>
+    <script src="./js/back_to_top.js"></script>
     <script>
-        const bar = document.getElementById('announcement');
-        const fab = document.getElementById('contactFab');
-        const fabToggle = document.getElementById('fabToggle');
-        const backToTop = document.getElementById('backToTop');
-
-        // mở sẵn 3 nút liên hệ khi vào trang
-        if (fab) {
-            fab.classList.add('open');
-            if (fabToggle) {
-                fabToggle.textContent = '×';
-                fabToggle.setAttribute('aria-expanded', 'true');
-                fabToggle.setAttribute('aria-label', 'Đóng liên hệ');
-            }
-        }
-
-        // toggle nút nổi: + <-> X và ẩn/hiện 3 icon
-        if (fabToggle && fab) {
-            fabToggle.addEventListener('click', () => {
-                const open = fab.classList.toggle('open');
-                fabToggle.textContent = open ? '×' : '+';
-                fabToggle.setAttribute('aria-expanded', String(open));
-                fabToggle.setAttribute('aria-label', open ? 'Đóng liên hệ' : 'Mở liên hệ');
-            });
-        }
-
-        // hiện nút Back-to-top sau khi cuộn; ẩn thanh thông báo khi rời top
-        const onScroll = () => {
-            if (bar) {
-                if (window.scrollY > 10) bar.classList.add('d-none');
-                else bar.classList.remove('d-none');
-            }
-            if (backToTop) {
-                if (window.scrollY > 300) backToTop.classList.add('show');
-                else backToTop.classList.remove('show');
-            }
-        };
-        window.addEventListener('scroll', onScroll, { passive: true });
-        // set trạng thái ban đầu khi vừa vào trang
-        onScroll();
-
-        // click lên đầu trang mượt mà
-        if (backToTop) {
-            backToTop.addEventListener('click', (e) => {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        }
-
         document.addEventListener("DOMContentLoaded", function () {
             function animateCounter(el, target, suffix, duration = 1200) {
                 let start = 0;
